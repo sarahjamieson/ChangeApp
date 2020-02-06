@@ -54,7 +54,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'change.context_processors.appname'
+                'change.context_processors.app_name'
             ],
         },
     },
