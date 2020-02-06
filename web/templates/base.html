@@ -1,0 +1,37 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>WMRGL Suggest and Change</title>
+        <script src="{% static 'web/js/jquery.min.js' %}"></script>
+        <link rel="stylesheet" type="text/css" href="{% static 'web/css/fomantic.min.css' %}">
+        <script src="{% static 'web/js/fomantic.min.js' %}"></script>
+        <link rel="shortcut icon" type="image/png" href="{% static 'web/favicon.ico' %}"/>
+        <link rel="stylesheet" href="{% static 'web/css/base.css' %}" type="text/css">
+    </head>
+    <body>
+        <div class="ui secondary pointing menu">
+            <div class="ui container">
+                <a class="header item {% if appname == "" %}active{% endif %}" href="{% url 'index' %}">
+                    <i class="home {% if appname == "" %}yellow{% endif %} large icon"></i>
+                </a>
+            </div>
+            <div class="right menu">
+                <a class="browse item" >
+                    {{ user.username }}
+                    <i class="large user icon"></i>
+                </a>
+            </div>
+            <div class="ui fluid popup bottom left transition hidden">
+            </div>
+        </div>
+        <div class="ui container">
+            <div class="ui padded container vertical segment">
+                {% block content %}
+                {% endblock %}
+            </div>
+        </div>
+    </body>
+    <script src={% static 'web/js/base.js' %}></script>
+</html>
