@@ -25,8 +25,7 @@ class User(AbstractUser):
         default=Band.NOT_SET
     )
 
-    hub = models.ForeignKey(
+    hubs = models.ManyToManyField(
         'db.Hub',
-        null=True,
-        on_delete=models.SET_NULL
+        related_name='staff'
     )
