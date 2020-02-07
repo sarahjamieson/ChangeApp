@@ -16,35 +16,39 @@
                 <a class="header item {% if app_name == "" %}active{% endif %}" href="{% url 'index' %}">
                     <i class="home {% if app_name == "" %}yellow{% endif %} large icon"></i>
                 </a>
-            </div>
-            <div class="right menu">
-                {% if user.is_authenticated %}
-                    <div class="ui inline dropdown item">
-                        <i class="user icon"></i>{{user.username}} <i class="dropdown icon"></i>
-                        <div class="menu">
-                            <a class="item" href="">
-                                Profile
-                                <i class="cog icon"></i>
-                            </a>
-                            <a class="item" href="{% url 'logout' %}">
-                                Sign out
-                                <i class="sign out alternate icon"></i>
-                            </a>
+                <div class="right menu">
+                    {% if user.is_authenticated %}
+                        <div class="ui inline dropdown item">
+                            <i class="user icon"></i>{{user.username}} <i class="dropdown icon"></i>
+                            <div class="menu">
+                                <a class="item" href="{% url 'profile' user.username %}">
+                                    Profile
+                                    <i class="cog icon"></i>
+                                </a>
+                                <a class="item" href="{% url 'logout' %}">
+                                    Sign out
+                                    <i class="sign out alternate icon"></i>
+                                </a>
+                            </div>
                         </div>
-                    </div>
-                {% else %}
-                    <a class="item" href="{% url 'login' %}">
-                        <i class="large sign in alternate icon"></i>
-                    </a>
-                {% endif %}
+                    {% else %}
+                        <a class="item" href="{% url 'login' %}">
+                            <i class="large sign in alternate icon"></i>
+                        </a>
+                    {% endif %}
+                </div>
             </div>
             <div class="ui fluid popup bottom left transition hidden">
             </div>
         </div>
-        <div class="ui container">
-            <div class="ui padded container vertical segment">
-                {% block content %}
-                {% endblock %}
+        <div class="ui grid">
+            <div class="three wide column">
+            </div>
+            <div class="ten wide column">
+                    {% block content %}
+                    {% endblock %}
+            </div>
+            <div class="three wide column">
             </div>
         </div>
     </body>

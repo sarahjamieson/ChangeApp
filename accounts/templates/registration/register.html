@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+  <h2 class="ui image header">
+    <i class="sign in alternate icon"></i>
+    <div class="content">
+      Register for an account
+      <div class="sub header">
+        <p>Please login to see this page.</p>
+      </div>
+    </div>
+  </h2>
+  <form method="post" action="{% url 'register' %}" class="ui large form">
+    {% csrf_token %}
+    <div class="ui stacked segment">
+      {{ form.as_p }}
+      <input type="submit" class="ui fluid large blue submit button" value="Register" />
+      <input type="hidden" name="next" value="{{ next }}" />
+    </div>
+  </form>
+{% endblock %}

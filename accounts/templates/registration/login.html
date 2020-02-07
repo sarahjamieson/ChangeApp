@@ -1,58 +1,52 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-    <div class="ui middle aligned grid">
-        <div class="four wide column"></div>
-        <div class="eight wide column">
-            <h2 class="ui image header">
-                <i class="sign in alternate icon"></i>
-                <div class="content">
-                    Log-in to your account
-                    <div class="sub header">
-                        {% if next %}
-                            {% if user.is_authenticated %}
-                                <p>Your account doesn't have access to this page. To proceed,
-                                please login with an account that has access.</p>
-                            {% else %}
-                                <p>Please login to see this page.</p>
-                            {% endif %}
-                        {% endif %}
-                    </div>
-                </div>
-            </h2>
-            <form method="post" action="{% url 'login' %}" class="ui large form">
-                {% csrf_token %}
-                <div class="ui stacked segment">
-                    <div class="field">
-                        <div class="ui left icon input">
-                            <i class="user icon"></i>
-                            <input type="text" name="{{ form.username.html_name }}" placeholder="Username">
-                        </div>
-                    </div>
-                    <div class="field">
-                        <div class="ui left icon input">
-                            <i class="lock icon"></i>
-                            <input type="password" name="{{ form.password.html_name }}" placeholder="Password">
-                        </div>
-                    </div>
-                    {% if form.errors %}
-                        <div class="ui negative icon message">
-                            <i class="exclamation icon"></i>
-                            <div class="content">
-                                <div class="header">Details not recognised:</div>
-                                Username and password provided do not match. Please try again.
-                            </div>
-                        </div>
+    <h2 class="ui image header">
+        <i class="sign in alternate icon"></i>
+        <div class="content">
+            Log-in to your account
+            <div class="sub header">
+                {% if next %}
+                    {% if user.is_authenticated %}
+                        <p>Your account doesn't have access to this page. To proceed,
+                        please login with an account that has access.</p>
+                    {% else %}
+                        <p>Please login to see this page.</p>
                     {% endif %}
-                    <input type="submit" class="ui fluid large blue submit button" value="Login" />
-                    <input type="hidden" name="next" value="{{ next }}" />
-                </div>
-            </form>
-            <div class="ui message">
-                Need an account? <a href="#">Sign Up</a>
+                {% endif %}
             </div>
-            <div class="ui right floated basic button"><a href="{% url 'password_reset' %}">Lost password?</a></div>
         </div>
-        <div class="four wide column"></div>
+    </h2>
+    <form method="post" action="{% url 'login' %}" class="ui large form">
+        {% csrf_token %}
+        <div class="ui stacked segment">
+            <div class="field">
+                <div class="ui left icon input">
+                    <i class="user icon"></i>
+                    <input type="text" name="{{ form.username.html_name }}" placeholder="Username">
+                </div>
+            </div>
+            <div class="field">
+                <div class="ui left icon input">
+                    <i class="lock icon"></i>
+                    <input type="password" name="{{ form.password.html_name }}" placeholder="Password">
+                </div>
+            </div>
+            {% if form.errors %}
+                <div class="ui negative icon message">
+                    <i class="exclamation icon"></i>
+                    <div class="content">
+                        <div class="header">Details not recognised:</div>
+                        Username and password provided do not match. Please try again.
+                    </div>
+                </div>
+            {% endif %}
+            <input type="submit" class="ui fluid large blue submit button" value="Login" />
+            <input type="hidden" name="next" value="{{ next }}" />
+        </div>
+    </form>
+    <div class="ui message">
+        Need an account? <a href="{% url 'register' %}">Sign Up</a>
     </div>
+    <div class="ui right floated basic button"><a href="{% url 'password_reset' %}">Lost password?</a></div>
 {% endblock %}

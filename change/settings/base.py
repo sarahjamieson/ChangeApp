@@ -42,6 +42,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'change.urls'
+LOGIN_REDIRECT_URL = 'index'
 LOGOUT_REDIRECT_URL = 'index'
 
 TEMPLATES = [
