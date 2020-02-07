@@ -17,7 +17,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Application definition
 INSTALLED_APPS = [
-    'accounts.apps.AccountsConfig',
     'db.apps.DbConfig',
     'web.apps.WebConfig',
     'django.contrib.admin',
@@ -29,6 +28,7 @@ INSTALLED_APPS = [
     'django_extensions',
     'rest_framework',
     'django_filters',
+    'accounts.apps.AccountsConfig',
 ]
 
 MIDDLEWARE = [
@@ -90,7 +90,6 @@ USE_I18N = True
 USE_L10N = True
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
@@ -98,6 +97,9 @@ STATIC_DIR = STATIC_ROOT
 STATIC_URL = '/static/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media', 'files')
 MEDIA_URL = '/media/'
+
+# DB config
+AUTH_USER_MODEL = 'accounts.User'
 
 # djangorestframework
 REST_FRAMEWORK = {
