@@ -58,9 +58,8 @@
         </div>
         <div class="required twelve wide field">
           <label>Hub(s)</label>
-          <!-- {{form.hubs}} -->
           <div class="ui multiple selection dropdown">
-            <input type="hidden" name={{form.hubs.html_name}} {% if form.errors %}value="{{form.hub.value|join:','}}"{% endif %}>
+            <input type="hidden" name={{form.hubs.html_name}} {% if form.errors %}value="{{form.hubs.value|join:','}}"{% endif %}>
             <i class="dropdown icon"></i>
             <div class="default text">{{form.hubs.label}}</div>
             <div class="menu">
@@ -74,11 +73,11 @@
       <h4 class="ui dividing header">Account Information</h4>
       <div class="required field">
         <label>Username</label>
-        <input type="text" name="{{form.username.html_name}}" placeholder="{{form.username.label}}"></input>
+        <input type="text" name="{{form.username.html_name}}" placeholder="{{form.username.label}}" {%if form.errors %}value="{{form.username.value}}"{% endif %}></input>
       </div>
       <div class="required field">
         <label>Email</label>
-        <input type="text" name="{{form.email.html_name}}" placeholder="{{form.email.label}}"></input>
+        <input type="text" name="{{form.email.html_name}}" placeholder="{{form.email.label}}" {%if form.errors %}value="{{form.email.value}}"{% endif %}></input>
       </div>
       <div class="required field">
         <label>{{form.password1.label}}</label>
