@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+  <h2 class="ui image header">
+    <i class="sign in alternate icon"></i>
+    <div class="content">
+      Register
+      <div class="sub header">
+        <p>Fill in the form to create an account.</p>
+      </div>
+    </div>
+  </h2>
+  <form method="post" action="{% url 'register' %}" class="ui form">
+    {% csrf_token %}
+    {% if form.errors %}
+      <div class="ui negative message">
+        <i class="close icon"></i>
+        <div class="content">
+          <div class="header">Error:</div>
+          {% for field in form %}
+            <ul class="list">
+              {% for error in field.errors %}
+                <li>{{field.label}}: {{error|escape}}</li>
+              {% endfor %}
+            </ul>
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %}
+    <div class="ui stacked segment">
+      <h4 class="ui dividing header">Personal Information</h4>
+      <div class="required field">
+        <label>Name</label>
+        <div class="two fields">
+          <div class="field">
+            <input type="text" name="{{form.first_name.html_name}}" placeholder="{{form.first_name.label}}" {% if form.errors %}value="{{form.first_name.value}}"{% endif %}></input>
+          </div>
+          <div class="field">
+            <input type="text" name="{{form.last_name.html_name}}" placeholder="{{form.last_name.label}}" {% if form.errors %}value="{{form.last_name.value}}"{% endif %}></input>
+          </div>
+        </div>
+      </div>
+      <div class="fields">
+        <div class="required four wide field">
+          <label>Band</label>
+          <div class="ui selection dropdown">
+            <input type="hidden" name={{form.band.html_name}} {% if form.errors %}value="{{form.band.value}}"{% endif %}>
+            <div class="default text">Band</div>
+            <i class="dropdown icon"></i>
+            <div class="menu">
+              {% for value, display in form.band.field.choices %}
+                <div class="item" data-value="{{value}}">
+                  {{display}}
+                </div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+        <div class="required twelve wide field">
+          <label>Hub(s)</label>
+          <div class="ui multiple selection dropdown">
+            <input type="hidden" name={{form.hubs.html_name}} {% if form.errors %}value="{{form.hubs.value|join:','}}"{% endif %}>
+            <i class="dropdown icon"></i>
+            <div class="default text">{{form.hubs.label}}</div>
+            <div class="menu">
+              {% for value, display in form.hubs.field.choices %}
+                <div class="item" data-value={{value}}>{{display}}</div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+      <h4 class="ui dividing header">Account Information</h4>
+      <div class="required field">
+        <label>Username</label>
+        <input type="text" name="{{form.username.html_name}}" placeholder="{{form.username.label}}" {%if form.errors %}value="{{form.username.value}}"{% endif %}></input>
+      </div>
+      <div class="required field">
+        <label>Email</label>
+        <input type="text" name="{{form.email.html_name}}" placeholder="{{form.email.label}}" {%if form.errors %}value="{{form.email.value}}"{% endif %}></input>
+      </div>
+      <div class="required field">
+        <label>{{form.password1.label}}</label>
+        <input type="password" name="{{form.password1.html_name}}" placeholder="{{form.password1.label}}"></input>
+      </div>
+      <div class="required field">
+        <label>{{form.password2.label}}</label>
+        <input type="password" name="{{form.password2.html_name}}" placeholder="{{form.password2.help_text}}"></input>
+      </div>
+      <input type="submit" class="ui fluid large blue submit button" value="Submit" />
+    </div>
+  </form>
+{% endblock %}

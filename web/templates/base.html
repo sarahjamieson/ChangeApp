@@ -1,0 +1,57 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>WMRGL Suggest and Change</title>
+        <script src="{% static 'web/js/jquery.min.js' %}"></script>
+        <link rel="stylesheet" type="text/css" href="{% static 'web/css/fomantic.min.css' %}">
+        <script src="{% static 'web/js/fomantic.min.js' %}"></script>
+        <link rel="shortcut icon" type="image/png" href="{% static 'web/favicon.ico' %}"/>
+        <link rel="stylesheet" href="{% static 'web/css/base.css' %}" type="text/css">
+    </head>
+    <body>
+        <div class="ui secondary pointing menu">
+            <div class="ui container">
+                <a class="header item {% if app_name == "" %}active{% endif %}" href="{% url 'index' %}">
+                    <i class="home {% if app_name == "" %}yellow{% endif %} large icon"></i>
+                    Home
+                </a>
+                <div class="right menu">
+                    {% if user.is_authenticated %}
+                        <div class="ui inline dropdown item">
+                            <i class="user icon"></i>{{user.username}} <i class="dropdown icon"></i>
+                            <div class="menu">
+                                <a class="item" href="{% url 'profile' user.username %}">
+                                    Profile
+                                    <i class="cog icon"></i>
+                                </a>
+                                <a class="item" href="{% url 'logout' %}">
+                                    Sign out
+                                    <i class="sign out alternate icon"></i>
+                                </a>
+                            </div>
+                        </div>
+                    {% else %}
+                        <a class="item" href="{% url 'login' %}">
+                            <i class="large sign in alternate icon"></i>
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="ui fluid popup bottom left transition hidden">
+            </div>
+        </div>
+        <div class="ui grid">
+            <div class="three wide column">
+            </div>
+            <div class="ten wide column">
+                    {% block content %}
+                    {% endblock %}
+            </div>
+            <div class="three wide column">
+            </div>
+        </div>
+    </body>
+    <script src={% static 'web/js/base.js' %}></script>
+</html>
