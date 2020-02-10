@@ -29,7 +29,10 @@ class RegisterView(CreateView):
     def post(self, request):
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
-            user = form.save(commit=True)
+            user = form.save(commit=False)
+            user.save()
+            form.save_m2m()
+            print(user.hubs.all())
             user = authenticate(
                 username=form.cleaned_data['username'],
                 password=form.cleaned_data['password1']

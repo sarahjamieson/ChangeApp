@@ -12,7 +12,8 @@ class CustomUserCreationForm(UserCreationForm):
     band = forms.ChoiceField(choices=User.Band.choices)
     hubs = forms.ModelMultipleChoiceField(
         queryset=Hub.objects.all(),
-        label='Hub(s)'
+        label='Hub(s)',
+        required=True
     )
 
     def __init__(self, data=None, *args, **kwargs):
@@ -21,7 +22,7 @@ class CustomUserCreationForm(UserCreationForm):
             data._mutable = True
             hubs = data.get('hubs').split(',')
             data.setlist('hubs', hubs)
-        super(UserCreationForm, self).__init__(data, *args, **kwargs)
+        super(CustomUserCreationForm, self).__init__(data, *args, **kwargs)
 
 
     class Meta:
