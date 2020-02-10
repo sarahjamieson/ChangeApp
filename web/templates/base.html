@@ -15,6 +15,7 @@
             <div class="ui container">
                 <a class="header item {% if app_name == "" %}active{% endif %}" href="{% url 'index' %}">
                     <i class="home {% if app_name == "" %}yellow{% endif %} large icon"></i>
+                    Home
                 </a>
                 <div class="right menu">
                     {% if user.is_authenticated %}
