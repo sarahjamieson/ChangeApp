@@ -15,6 +15,7 @@ class ProfileView(DetailView):
     """User profile view
     """
     model = User
+    context_object_name = 'account'
     template_name = 'accounts/profile.html'
 
     def get_object(self):

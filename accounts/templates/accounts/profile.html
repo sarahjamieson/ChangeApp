@@ -8,9 +8,9 @@
                 <h2 class="ui header">
                     <i class="user icon"></i>
                     <div class="content">
-                        {{user.first_name}} {{user.last_name}}
+                        {{account.first_name}} {{account.last_name}}
                         <div class="sub header">
-                            {{user.email}}
+                            {{account.email}}
                         </div>
                     </div>
                 </h2>
@@ -68,7 +68,7 @@
         </div>
         <div class="extra content">
             <p class="right floated">
-            User since {{user.date_joined|date:'d M Y'}}
+            User since {{account.date_joined|date:'d M Y'}}
             </p>
         </div>
     </div>
