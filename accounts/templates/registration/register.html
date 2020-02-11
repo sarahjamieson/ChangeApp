@@ -36,46 +36,26 @@
                         <label>Name</label>
                         <div class="two fields">
                             <div class="field">
-                                <input type="text" name="{{form.first_name.html_name}}" placeholder="{{form.first_name.label}}" {% if form.errors %}value="{{form.first_name.value}}"{% endif %}></input>
+                                {{form.first_name}}
                             </div>
                             <div class="field">
-                                <input type="text" name="{{form.last_name.html_name}}" placeholder="{{form.last_name.label}}" {% if form.errors %}value="{{form.last_name.value}}"{% endif %}></input>
+                                {{form.last_name}}
                             </div>
                         </div>
                     </div>
                     <h4 class="ui dividing header">Role Information</h4>
                     <div class="fields">
                         <div class="required eight wide field">
-                            <label>Role</label>
-                            <input type="text" name="{{form.role.html_name}}" placeholder="{{form.role.label}}" {% if form.errors %}value="{{form.role.value}}"{% endif %}></input>
+                            {{form.role.label_tag}}
+                            {{form.role}}
                         </div>
                         <div class="required four wide field">
-                            <label>Hub(s)</label>
-                            <div class="ui multiple selection dropdown">
-                                <input type="hidden" name={{form.hubs.html_name}} {% if form.errors %}value="{{form.hubs.value|join:','}}"{% endif %}>
-                                <i class="dropdown icon"></i>
-                                <div class="default text">{{form.hubs.label}}</div>
-                                <div class="menu">
-                                    {% for value, display in form.hubs.field.choices %}
-                                        <div class="item" data-value={{value}}>{{display}}</div>
-                                    {% endfor %}
-                                </div>
-                            </div>
+                            {{form.hubs.label_tag}}
+                            {{form.hubs}}
                         </div>
                         <div class="required four wide field">
-                            <label>Band</label>
-                            <div class="ui selection dropdown">
-                                <input type="hidden" name={{form.band.html_name}} {% if form.errors %}value="{{form.band.value}}"{% endif %}>
-                                <div class="default text">Band</div>
-                                <i class="dropdown icon"></i>
-                                <div class="menu">
-                                    {% for value, display in form.band.field.choices %}
-                                        <div class="item" data-value="{{value}}">
-                                            {{display}}
-                                        </div>
-                                    {% endfor %}
-                                </div>
-                            </div>
+                            {{form.band.label_tag}}
+                            {{form.band}}
                         </div>
                     </div>
                     <h4 class="ui dividing header">Account Information</h4>
