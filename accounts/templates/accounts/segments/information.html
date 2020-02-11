@@ -1,0 +1,52 @@
+{% load static %}
+<div class="ui grid">
+  <!-- 5 + 5 + 6 = 16 -->
+  <div class="five wide column">
+    <div class="ui list">
+      <div class="item">
+        <div class="header">Name</div>
+        {{user.first_name}} {{user.last_name}}
+      </div>
+      <div class="item">
+        <div class="header">Username</div>
+        {{user.username}}
+      </div>
+      <div class="item">
+        <div class="header">Email</div>
+        {{user.email}}
+      </div>
+    </div>
+  </div>
+  <div class="five wide column">
+    <div class="ui list">
+      <div class="item">
+        <div class="header">Hub{{user.hubs.all|pluralize}}</div>
+        {{user.hubs.all|join:', '}}
+      </div>
+      <div class="item">
+        <div class="header">Role</div>
+        {{user.role}}
+      </div>
+      <div class="item">
+        <div class="header">Band</div>
+        {{user.band}}
+      </div>
+    </div>
+  </div>
+  <div class="six wide column">
+<div class="ui list">
+      <div class="item">
+        <div class="header">First Name</div>
+        {{user.first_name}}
+      </div>
+      <div class="item">
+        <div class="header">Last Name</div>
+        {{user.last_name}}
+      </div>
+      <div class="item">
+        <div class="header">Username</div>
+        {{user.username}}
+      </div>
+    </div>
+  </div>
+</div>
