@@ -43,7 +43,10 @@ class UpdateProfileForm(forms.ModelForm):
     email = forms.EmailField(max_length=254, required=True)
     first_name = forms.CharField(max_length=30, required=True)
     last_name = forms.CharField(max_length=150, required=True)
-    band = forms.ChoiceField(choices=User.Band.choices)
+    band = forms.ChoiceField(
+        choices=User.Band.choices,
+        widget=forms.Select(attrs={'class': 'ui dropdown'})
+    )
     hubs = forms.ModelMultipleChoiceField(
         queryset=Hub.objects.all(),
         label='Hub(s)',
