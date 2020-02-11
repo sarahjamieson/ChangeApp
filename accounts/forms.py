@@ -15,6 +15,7 @@ class CustomUserCreationForm(UserCreationForm):
         label='Hub(s)',
         required=True
     )
+    role = forms.CharField(max_length=80,required=True)
 
     def __init__(self, data=None, *args, **kwargs):
         # required to process string of hub ids to list of hub ids
@@ -33,7 +34,8 @@ class CustomUserCreationForm(UserCreationForm):
             'username',
             'email',
             'band',
-            'hubs'
+            'hubs',
+            'role'
         )
 
 

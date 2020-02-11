@@ -29,3 +29,7 @@ class User(AbstractUser):
         'db.Hub',
         related_name='staff'
     )
+
+    role = models.CharField(
+        max_length=80
+    )
