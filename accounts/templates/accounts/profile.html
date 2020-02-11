@@ -1,5 +1,78 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-<div class="ui segment"></div>
+    <link rel="stylesheet" href="{% static 'accounts/css/accounts.css' %}" type="text/css">
+    <div class="ui fluid card">
+        <div class="content">
+            <div class="header">
+                <h2 class="ui header">
+                    <i class="user icon"></i>
+                    <div class="content">
+                        {{user.first_name}} {{user.last_name}}
+                        <div class="sub header">
+                            {{user.email}}
+                        </div>
+                    </div>
+                </h2>
+            </div>
+            <div class="description">
+                <!-- add a little padding to the top and bottom -->
+                <div class="ui basic segment" style="padding-left: 0px; padding-right: 0px">
+                    <div class="ui grid">
+                        <div class="row">
+                            <div class="ten wide column">
+                                <div class="ui segment profile-segment">
+                                    <h4 class="ui header">
+                                        <i class="info circle icon"></i>
+                                        User Information
+                                    </h4>
+                                    <div class="ui grid">
+                                        <div class="six wide column"></div>
+                                        <div class="six wide column"></div>
+                                    </div>
+                                </div>
+                                <div class="ui segment profile-segment">
+                                    <h4 class="ui header">
+                                        <i class="tasks icon"></i>
+                                        Tasks
+                                    </h4>
+                                </div>
+                            </div>
+                            <div class="six wide column">
+                                <div id="changes" class="ui segment profile-segment">
+                                    <h4 class="ui header">
+                                        <i class="lightbulb outline icon"></i>
+                                        Changes
+                                    </h4>
+                                </div>
+                            </div>
+                        </div> <!-- row -->
+                        <div class="row" style="padding: 0px">
+                            <div class="ten wide column">
+                                <div class="ui segment profile-segment">
+                                    <h4 class="ui header">
+                                        <i class="file alternate outline icon"></i>
+                                        Documents
+                                    </h4>
+                                </div>
+                            </div> <!-- ten wide column -->
+                            <div class="six wide column">
+                                <div class="ui segment profile-segment">
+                                    <h4 class="ui header">
+                                        <i class="history icon"></i>
+                                        History
+                                    </h4>
+                                </div>
+                            </div> <!-- six wide column -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="extra content">
+            <p class="right floated">
+            User since {{user.date_joined|date:'d M Y'}}
+            </p>
+        </div>
+    </div>
 {% endblock %}
