@@ -3,6 +3,17 @@
   <i class="history icon"></i>
   History
 </h4>
-{% for crud_event in crud_events %}
-  {{crud_event}}
-{% endfor %}
+<div class="ui feed">
+  {% for event in history %}
+    <div class="event">
+      <div class="content">
+        <div class="summary">
+          {{event}}
+          <div class="date">
+            {{event.datetime}}
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+</div>

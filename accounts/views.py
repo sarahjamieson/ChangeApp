@@ -2,8 +2,6 @@ from django.contrib import messages
 from django.contrib.auth import authenticate
 from django.contrib.auth import login
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.contenttypes.models import ContentType
-from django.db.models import Q
 from django.shortcuts import get_object_or_404
 from django.shortcuts import render
 from django.urls import reverse
@@ -17,7 +15,7 @@ from django.views.generic.detail import SingleObjectMixin
 from accounts.models import User
 from accounts.forms import CustomUserCreationForm
 from accounts.forms import UpdateProfileForm
-from easyaudit.models import CRUDEvent
+from accounts.utils import get_user_audit_log
 
 
 class ProfileDisplay(LoginRequiredMixin, DetailView):
@@ -32,26 +30,11 @@ class ProfileDisplay(LoginRequiredMixin, DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(ProfileDisplay, self).get_context_data(**kwargs)
+        account=self.get_object()
 
-        context['form'] = UpdateProfileForm(instance=self.get_object())
-        context['crud_events'] = self.get_user_audit()
+        context['form'] = UpdateProfileForm(instance=account)
+        context['history'] = get_user_audit_log(user=account)
         return context
-
-    def get_user_audit(self):
-        # get user-specific audit data
-        account = self.get_object()
-        user_contenttype = ContentType.objects.get(
-            app_label='accounts',
-            model='user'
-        )
-
-        # get things done by user
-        user_activity = Q(user=account)
-        # and things done to user
-        user_modified = Q(content_type=user_contenttype, object_id=account.id)
-        crud_events = CRUDEvent.objects.filter(user_activity | user_modified)
-
-        return crud_events
 
 
 class ProfileUpdate(LoginRequiredMixin, SingleObjectMixin, FormView):
