@@ -44,6 +44,7 @@ class ProfileUpdate(LoginRequiredMixin, SingleObjectMixin, FormView):
         form = UpdateProfileForm(request.POST, instance=self.object)
         if form.is_valid():
             form.save()
+            form.save_m2m()
             messages.success(request, "User profile successfully updated.")
         return super(ProfileUpdate, self).post(request, *args, **kwargs)
 
