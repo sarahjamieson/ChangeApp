@@ -4,11 +4,16 @@
     <head>
         <meta charset="UTF-8">
         <title>WMRGL Suggest and Change</title>
-        <script src="{% static 'web/js/jquery.min.js' %}"></script>
-        <link rel="stylesheet" type="text/css" href="{% static 'web/css/fomantic.min.css' %}">
-        <script src="{% static 'web/js/fomantic.min.js' %}"></script>
         <link rel="shortcut icon" type="image/png" href="{% static 'web/favicon.ico' %}"/>
         <link rel="stylesheet" href="{% static 'web/css/base.css' %}" type="text/css">
+        <!-- jQuery 3.3.1 -->
+        <script src="{% static 'web/dependencies/jquery/js/jquery.min.js' %}"></script>
+        <!-- FomanticUI 2.8.3 -->
+        <link rel="stylesheet" type="text/css" href="{% static 'web/dependencies/fomantic/css/fomantic.min.css' %}">
+        <script src="{% static 'web/dependencies/fomantic/js/fomantic.min.js' %}"></script>
+        <!-- dataTables 1.10.20 -->
+        <link rel="stylesheet" type="text/css" href="{% static 'web/dependencies/dataTables/css/jquery.dataTables.css' %}">
+        <script type="text/javascript" charset="utf8" src="{% static 'web/dependencies/dataTables/js/jquery.dataTables.js' %}"></script>
     </head>
     <body>
         {% include 'sidebars/sidebar.html' %}

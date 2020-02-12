@@ -1,0 +1,8 @@
+{% load static %}
+<h4 class="ui header">
+  <i class="history icon"></i>
+  History
+</h4>
+{% for crud_event in crud_events %}
+  {{crud_event}}
+{% endfor %}
