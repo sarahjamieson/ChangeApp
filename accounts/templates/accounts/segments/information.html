@@ -1,0 +1,53 @@
+{% load static %}
+<div class="ui grid">
+  <div class="eight wide column">
+    <h4 class="ui header">
+      <i class="info circle icon"></i>
+      User Information
+    </h4>
+  </div>
+  <div class="eight wide column">
+    {% if user.username == account.username %}
+      <i class="right floated pencil link icon" onclick='modifyAccount()'></i>
+    {% endif %}
+  </div>
+</div>
+<div class="ui container">
+  <div class="ui grid">
+    <div class="eight wide column">
+      <div class="ui list">
+        <div class="item">
+          <div class="header">Name</div>
+          {{account.first_name}} {{account.last_name}}
+        </div>
+        <div class="item">
+          <div class="header">Username</div>
+          {{account.username}}
+        </div>
+        <div class="item">
+          <div class="header">Email</div>
+          {{account.email}}
+        </div>
+      </div>
+    </div>
+    <div class="eight wide column">
+      <div class="ui list">
+        <div class="item">
+          <div class="header">Hub{{account.hubs.all|pluralize}}</div>
+          {{account.hubs.all|join:', '}}
+        </div>
+        <div class="item">
+          <div class="header">Role</div>
+          {{account.role}}
+        </div>
+        <div class="item">
+          <div class="header">Band</div>
+          {{account.band}}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% if user.username == account.username %}
+  {% include 'accounts/modals/profile-update.html' %}
+{% endif %}

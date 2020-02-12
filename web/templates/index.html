@@ -1,48 +1,60 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-<h1 class="ui center aligned icon header">
-    <img src="{% static 'web/favicon.ico' %}" alt="Suggest and Change">
-    <source></source>
-    <div class="content">
-        WMRGL Suggest and Change
-    </div>
-    <div class="sub header">
-        Welcome to the WMRGL Suggest and Change system!
-    </div>
-</h1>
-<h3 class="ui horizontal divider hedaer">
+<div class="ui basic segment">
+    {% if messages %}
+        {% for message in messages %}
+        <div id="form-message" class="ui {{message.tags}} message">
+            <i class="close icon"></i>
+            {{message}}
+        </div>
+        {% endfor %}
+    {% endif %}
+    <h1 class="ui center aligned icon header">
+        <img src="{% static 'web/favicon.ico' %}" alt="Suggest and Change">
+        <source></source>
+        <div class="content">
+            WMRGL Suggest and Change
+        </div>
+        <div class="sub header">
+            Welcome to the WMRGL Suggest and Change system!
+        </div>
+    </h1>
+</div>
+<h3 class="ui horizontal divider" style="font-variant: small-caps;">
     <i class="sign in alternate icon"></i>
-    Applications
+    applications
 </h3>
-<div class="ui four cards">
-    <a class="ui red card" href=""><div class="content">
-            <div class="header">
-                <img class="ui image" style="width:20px" src="{% static 'web/favicon.ico' %}" alt="">
-                <span>Suggest</span>
-            </div>
-            <div class="meta"><span class="category">Make a suggestion for a change</span></div>
-        </div></a>
-    <a class="ui blue card" href=""><div class="content">
-            <div class="header">
-                <i class="search icon"></i>
-                <span>Find</span>
-            </div>
-            <div class="meta"><span class="category">Go to a specific change</span></div>
-        </div></a>
-    <a class="ui green card" href=""><div class="content">
-            <div class="header">
-                <i class="list alternate outline icon"></i>
-                <span>Track</span>
-            </div>
-            <div class="meta"><span class="category">View and track all changes</span></div>
-        </div></a>
-    <a class="ui purple card" href=""><div class="content">
-            <div class="header">
-                <i class="user shield icon"></i>
-                <span>Manage</span>
-            </div>
-            <div class="meta"><span class="category">Audit, management, and admin tools</span></div>
-        </div></a>
+<div class="ui basic segment">
+    <div class="ui four cards">
+        <a class="ui red card" href=""><div class="content">
+                <div class="header">
+                    <img class="ui image" style="width:20px" src="{% static 'web/favicon.ico' %}" alt="">
+                    <span>Suggest</span>
+                </div>
+                <div class="meta"><span class="category">Make a suggestion for a change</span></div>
+            </div></a>
+            <a class="ui blue card" href=""><div class="content">
+                    <div class="header">
+                        <i class="search icon"></i>
+                        <span>Find</span>
+                    </div>
+                    <div class="meta"><span class="category">Go to a specific change</span></div>
+                </div></a>
+                <a class="ui green card" href=""><div class="content">
+                        <div class="header">
+                            <i class="list alternate outline icon"></i>
+                            <span>Track</span>
+                        </div>
+                        <div class="meta"><span class="category">View and track all changes</span></div>
+                    </div></a>
+                    <a class="ui purple card" href=""><div class="content">
+                            <div class="header">
+                                <i class="user shield icon"></i>
+                                <span>Manage</span>
+                            </div>
+                            <div class="meta"><span class="category">Audit, management, and admin tools</span></div>
+                        </div></a>
+    </div>
 </div>
 {% endblock %}
