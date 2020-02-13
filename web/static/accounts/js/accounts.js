@@ -1,5 +1,18 @@
 $(document).ready(function() {
-    $('#history-dt').DataTable();
+    $('#user-history-table').DataTable({
+        order: [[1, 'desc']],
+        lengthMenu: [[5]],
+        bLengthChange: false,
+        bFilter: false,
+        bInfo: false,
+        columnDefs: [
+            {
+                targets: [1],
+                visible: false,
+                searchable: false,
+            },
+        ],
+    });
 });
 
 function modifyAccount() {

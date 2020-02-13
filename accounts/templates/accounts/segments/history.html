@@ -1,26 +1,37 @@
 {% load static %}
+{% load extras %}
 <h4 class="ui header">
     <i class="history icon"></i>
     History
 </h4>
-<div class="ui feed">
-    {% for event in history %}
-        <div class="event">
-            <div class="label">
-                <i class="{{event.icon}} icon"></i>
-            </div>
-            <div class="content">
-                <div class="date">
-                    {{event.datetime}}
-                </div>
-                <div class="summary">
-                    {% if event.zipped_message %}
-                        {% for text, link in event.zipped_message %}{{text}}<a href="{{link.url}}">{{link.display}}</a>{% endfor %}
-                    {% else %} 
-                        {{event}}
-                    {% endif %}
-                </div>
-            </div>
-        </div>
-    {% endfor %}
-</div>
+
+<table id="user-history-table" class="ui very compact very basic table">
+    <thead>
+        <tr>
+            <td>Event</td>
+            <td>date-hidden</td>
+        </tr>
+    </thead>
+    <tbody>
+        {% for event in history %}
+            <tr>
+                <td>
+                    <div class="ui feed">
+                        <div class="event">
+                            <div class="label">
+                                <i class="{{event.icon}} icon"></i>
+                            </div>
+                            <div class="content">
+                                <div class="date">{{event.datetime}}</div>
+                                <div class="summary">
+                                    {% for text, link in event.zipped_message %}{{text}}<a href="{{link.url}}">{{link.display}}</a>{% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td>{{event.datetime|date:'Y-m-d H:i:s:u'}}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>

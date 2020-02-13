@@ -4,16 +4,35 @@
     <head>
         <meta charset="UTF-8">
         <title>WMRGL Suggest and Change</title>
+
         <link rel="shortcut icon" type="image/png" href="{% static 'web/favicon.ico' %}"/>
         <link rel="stylesheet" href="{% static 'web/css/base.css' %}" type="text/css">
-        <!-- jQuery 3.3.1 -->
-        <script src="{% static 'web/dependencies/jquery/js/jquery.min.js' %}"></script>
-        <!-- FomanticUI 2.8.3 -->
+
+        <!-- fomantic css -->
         <link rel="stylesheet" type="text/css" href="{% static 'web/dependencies/fomantic/css/fomantic.min.css' %}">
-        <script src="{% static 'web/dependencies/fomantic/js/fomantic.min.js' %}"></script>
-        <!-- dataTables 1.10.20 -->
-        <link rel="stylesheet" type="text/css" href="{% static 'web/dependencies/dataTables/css/jquery.dataTables.css' %}">
+        <!-- datatables semantic css -->
+        <link rel="stylesheet" type="text/css" href="{% static 'web/dependencies/dataTables/css/dataTables.semanticui.min.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'web/dependencies/dataTables/css/buttons.semanticui.min.css' %}">
+        <!-- jquery -->
+        <script src="{% static 'web/dependencies/jquery/js/jquery.min.js' %}"></script>
+        <!-- datatables js -->
         <script type="text/javascript" charset="utf8" src="{% static 'web/dependencies/dataTables/js/jquery.dataTables.js' %}"></script>
+        <!-- datatables semantic js -->
+        <script type="text/javascript" charset="utf8" src="{% static 'web/dependencies/dataTables/js/dataTables.semanticui.min.js' %}"></script>
+        <!-- datatables buttons js -->
+        <script type="text/javascript" charset="utf8" src="{% static 'web/dependencies/dataTables/js/buttons.semanticui.min.js' %}"></script>
+        <!-- datatables semantic buttons js -->
+        <!-- fomantic js -->
+
+
+
+        <!-- FomanticUI 2.8.3 -->
+
+
+        <script src="{% static 'web/dependencies/fomantic/js/fomantic.min.js' %}"></script>
+        <!-- jQuery 3.3.1 -->
+        <!-- dataTables 1.10.20 -->
+
     </head>
     <body>
         {% include 'sidebars/sidebar.html' %}
