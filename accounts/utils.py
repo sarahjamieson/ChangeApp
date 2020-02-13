@@ -1,8 +1,12 @@
+import json
+
 from django.contrib.contenttypes.models import ContentType
 from django.db.models import Q
 from easyaudit.models import CRUDEvent
 
 from accounts.models import User
+from db.models import Hub
+from db.utils.audit import Event
 
 
 content_types = {
@@ -12,95 +16,116 @@ content_types = {
     ),
 }
 
-
-class Event():
-    """
-    Event which can be interpreted easily by a django template tag.
-
-    Has a list of strings to make up a message, and list of url refs which can
-    be included in the message. The message should always come first, and the
-    two lists must be of equal length - so there may be padding required.
-    """
-    def __init__(self):
-        self.text = []
-        self.links = []
-
-    def add_text(self, text):
-        if len(self.text) == 0:
-            # first item
-            self.text.append(text)
-            self.links.append('')
-        else:
-            self.add_item(text, to_list=self.text, other_list=self.links)
-
-
-    def add_link(self, link):
-        if len(self.links) == 0:
-            # first item
-            self.text.append('')
-            self.links.append(link)
-        else:
-            self.add_item(link, to_list=self.links, other_list=self.text)
-
-    def add_item(self, item, to_list, other_list):
-        if to_list[-1] == '':
-            # adding an item to message preceded by a link
-            to_list.pop()
-        else:
-            other_list.append('')
-        to_list.append(item)
-
-    def __str__(self):
-        message = []
-        for i in range(len(self.text)):
-            message.append(self.text[i])
-            message.append(str(self.links[i]))
-
-        return ''.join(message)
-
-    class URLRef():
-        """
-        Reference to another page with a given name and ref, eg. pk.
-        """
-        def __init__(self, name, reference):
-            self.name = name
-            self.reference = reference
-
-        def __str__(self):
-            return f"url@{self.name}:{self.reference}"
+event_types = {
+    'create': CRUDEvent.CREATE
+}
 
 
 def get_user_audit_log(user):
     """Get all the CRUDevents which relate to a user and return a nice list.
     """
-
     # get things done by user
     user_activity = Q(user=user)
     # and things done to user
     user_modified = Q(content_type=content_types['user'], object_id=user.id)
     crud_events = CRUDEvent.objects.filter(user_activity | user_modified)
-    events = [process_crud(x) for x in crud_events]
+    events = process_crud_events(crud_events)
+    return events
+
+
+def process_crud_events(crud_events):
+    events = []
+    for event in crud_events:
+        events_from_crud = process_crud(event, crud_events)
+        events.extend(events_from_crud)
+
+    # some return none if non-interesting, eg. last login updates.
+    return [event for event in events if event]
+
+def process_crud(crud, user_events):
+    """Process a CRUD event from db into a form which can be displayed in HTML
+    """
+    events = []
+    if crud.content_type == content_types['user']:
+        user = User.objects.get(id=crud.object_id)
+        if crud.event_type == CRUDEvent.CREATE:
+            event = Event(datetime=crud.datetime, icon='user plus')
+            event.add_text('User ')
+            event.add_link(
+                Event.URLRef(
+                    name='profile',
+                    reference=user.username,
+                    display=user.username
+                )
+            )
+            event.add_text(' was created.')
+            events.append(event)
+        elif crud.event_type == CRUDEvent.M2M_CHANGE:
+            events.extend(join_or_leave_hubs_event(crud, user_events))
+    return events
+
+
+def join_or_leave_hubs_event(crud, user_events):
+    events = []
+    new_json = json.loads(crud.object_json_repr)
+    found_previous = False
+    while not found_previous:
+        previous_crud = crud.get_previous_by_datetime()
+        if previous_crud in user_events:
+            found_previous = True
+    old_json = json.loads(previous_crud.object_json_repr)
+
+    new_hubs = set(new_json[0]['fields']['hubs'])
+    old_hubs = set(old_json[0]['fields']['hubs'])
+
+    hubs_joined = new_hubs - old_hubs
+    hubs_left = old_hubs - new_hubs
+
+    if hubs_joined:
+        events.append(
+            change_hubs_event(
+                change_type='join',
+                hubs=hubs_joined,
+                datetime=crud.datetime
+            )
+        )
+    if hubs_left:
+        events.append(
+            change_hubs_event(
+                change_type='leave',
+                hubs=hubs_left,
+                datetime=crud.datetime
+            )
+        )
 
     return events
 
 
-def process_crud(crud):
-    """Process a CRUD event from db into a form which can be displayed in HTML
-    """
-    event = Event()
-    if crud.content_type == content_types['user']:
-        event.text.append('User ')
-        event.links.append(
+def change_hubs_event(change_type, hubs, datetime):
+    change_text = 'Joined' if change_type == 'join' else 'Left'
+    hub_text = 'hub' if len(hubs) == 1 else 'hubs'
+    hubs = list(hubs)
+    event = Event(datetime=datetime, icon='users')
+    event.add_text(f"{change_text} ")
+
+    for i in range(len(hubs)):
+        last = True if i+1 == len(hubs) else False
+        penultimate = True if i+1 == len(hubs)-1 else False
+        hub = Hub.objects.get(id=hubs[i])
+        event.add_link(
             Event.URLRef(
-                name='profile',
-                reference=User.objects.get(id=crud.object_id).username
+                name='hub',
+                reference=hub.name,
+                display=hub.name
             )
         )
-        event.text.append(' was created.')
-    else:
-        pass
+        if last:
+            pass
+        elif penultimate:
+            event.add_text(' and ')
+        else:
+            event.add_text(', ')
+
+    event.add_text(f" {hub_text}.")
     return event
-
-
-
 

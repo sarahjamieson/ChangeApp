@@ -5,24 +5,22 @@
 </h4>
 <div class="ui feed">
     {% for event in history %}
-    <div class="event">
-        <div class="content">
-            <div class="summary">
-                {% if event.zipped_message %}
-                    {% for text, link in event.zipped_message %}
-                        {{text}}
-                        <a href="{{link.url}}">{{link.display}}</a>
-                    {% endfor %}
-                {% else %} 
-                    {{event}}
-                {% endif %}
+        <div class="event">
+            <div class="label">
+                <i class="{{event.icon}} icon"></i>
             </div>
-            <div class="meta">
+            <div class="content">
                 <div class="date">
                     {{event.datetime}}
                 </div>
+                <div class="summary">
+                    {% if event.zipped_message %}
+                        {% for text, link in event.zipped_message %}{{text}}<a href="{{link.url}}">{{link.display}}</a>{% endfor %}
+                    {% else %} 
+                        {{event}}
+                    {% endif %}
+                </div>
             </div>
         </div>
-    </div>
     {% endfor %}
 </div>

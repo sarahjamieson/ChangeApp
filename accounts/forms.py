@@ -107,8 +107,6 @@ class UpdateProfileForm(CustomUserCreationForm):
         super(UpdateProfileForm, self).__init__(*args, **kwargs)
         del self.fields['password1']
         del self.fields['password2']
-        from pprint import pprint
-        pprint(self.__dict__)
 
     def save(self, commit=True):
         user = super(UserCreationForm, self).save(commit=False)
