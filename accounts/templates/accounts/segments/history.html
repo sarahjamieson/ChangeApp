@@ -1,19 +1,28 @@
 {% load static %}
 <h4 class="ui header">
-  <i class="history icon"></i>
-  History
+    <i class="history icon"></i>
+    History
 </h4>
 <div class="ui feed">
-  {% for event in history %}
+    {% for event in history %}
     <div class="event">
-      <div class="content">
-        <div class="summary">
-          {{event}}
-          <div class="date">
-            {{event.datetime}}
-          </div>
+        <div class="content">
+            <div class="summary">
+                {% if event.zipped_message %}
+                    {% for text, link in event.zipped_message %}
+                        {{text}}
+                        <a href="{{link.url}}">{{link.display}}</a>
+                    {% endfor %}
+                {% else %} 
+                    {{event}}
+                {% endif %}
+            </div>
+            <div class="meta">
+                <div class="date">
+                    {{event.datetime}}
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  {% endfor %}
+    {% endfor %}
 </div>

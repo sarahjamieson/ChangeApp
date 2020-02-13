@@ -16,6 +16,7 @@ from accounts.models import User
 from accounts.forms import CustomUserCreationForm
 from accounts.forms import UpdateProfileForm
 from accounts.utils import get_user_audit_log
+from db.models import Hub
 
 
 class ProfileDisplay(LoginRequiredMixin, DetailView):
@@ -94,3 +95,13 @@ class RegisterView(CreateView):
             return render(request, 'index.html')
         else:
             return render(request, self.template_name, {'form': form})
+
+
+class HubView(LoginRequiredMixin, DetailView):
+    """View of an individual hub
+    """
+    model = Hub
+    context_object_name = 'hub'
+    template_name = 'accounts/hub.html'
+    def get_object(self):
+        return get_object_or_404(Hub, name__iexact=self.kwargs.get('name'))
