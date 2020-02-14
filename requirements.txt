@@ -1,10 +1,12 @@
 asgiref==3.2.3
 attrs==19.3.0
 backcall==0.1.0
+beautifulsoup4==4.8.2
 bleach==3.1.0
 decorator==4.4.1
 defusedxml==0.6.0
 Django==3.0.3
+django-easy-audit==1.2.1
 django-extensions==2.2.6
 django-filter==2.2.0
 djangorestframework==3.11.0
@@ -43,6 +45,7 @@ pyzmq==18.1.1
 qtconsole==4.6.0
 Send2Trash==1.5.0
 six==1.14.0
+soupsieve==1.9.5
 sqlparse==0.3.0
 terminado==0.8.3
 testpath==0.4.4

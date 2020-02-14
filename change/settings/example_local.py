@@ -5,19 +5,19 @@ from change.settings.base import *
 DEBUG = True
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'Q$(:C)k-m_pS0:h'
+SECRET_KEY = ''
 
-ALLOWED_HOSTS = ['192.168.147.68']
+ALLOWED_HOSTS = []
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'change',
-        'USER': 'change',
-        'PASSWORD': '~~10.such.YEAR.jump.74~~',
-        'HOST': '127.0.0.1',
+        'NAME': '',
+        'USER': '',
+        'PASSWORD': '',
+        'HOST': '',
         'PORT': '',
     },
 }

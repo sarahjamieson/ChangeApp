@@ -1,7 +1,24 @@
+/* h4.ui.header { */
+/*     margin-bottom: 0px; */
+/* } */
+
 #changes.ui.segment.profile-segment {
+    height: 100%;
+}
+
+#documents.ui.segment.profile-segment {
     height: 100%;
 }
 
 #form-message {
     margin-bottom: 0px;
+}
+
+#user-history-table tr td {
+    border-top: 0px !important;
+    padding: 0px;
+}
+
+#user-history-table thead {
+    display: none;
 }

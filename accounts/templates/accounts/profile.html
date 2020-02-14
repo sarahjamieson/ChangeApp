@@ -64,7 +64,7 @@
                         </div> <!-- row -->
                         <div class="row" style="padding: 0px">
                             <div class="ten wide column">
-                                <div class="ui segment profile-segment">
+                                <div id="documents" class="ui segment profile-segment">
                                     <h4 class="ui header">
                                         <i class="file alternate outline icon"></i>
                                         Documents
@@ -72,11 +72,8 @@
                                 </div>
                             </div> <!-- ten wide column -->
                             <div class="six wide column">
-                                <div class="ui segment profile-segment">
-                                    <h4 class="ui header">
-                                        <i class="history icon"></i>
-                                        History
-                                    </h4>
+                                <div id="history" class="ui segment profile-segment">
+                                    {% include 'accounts/segments/history.html' %}
                                 </div>
                             </div> <!-- six wide column -->
                         </div>
