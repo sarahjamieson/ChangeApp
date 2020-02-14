@@ -2,5 +2,55 @@
 {% load static %}
 {% block content %}
     <link rel="stylesheet" href="{% static 'change_app/css/change_app.css' %}" type="text/css">
-    {{form}}
+    <div class="ui fluid card">
+        <div class="content">
+            <div class="header">
+                <h2 class="ui header">
+                    <i class="user icon"></i>
+                    <div class="content">
+                        {{account.first_name}} {{account.last_name}}
+                        <div class="sub header">
+                            {{account.role}}
+                        </div>
+                    </div>
+                </h2>
+            </div>
+            {% if messages %}
+                {% for message in messages %}
+                    <div id="form-message" class="ui {{message.tags}} message">
+                        <i class="close icon"></i>
+                        {{message}}
+                    </div>
+                {% endfor %}
+            {% elif form.errors %}
+                <div id="form-message" class="ui negative message">
+                    <i class="close icon"></i>
+                    <div class="content">
+                        <div class="header">Error updating account:</div>
+                        {% for field in form %}
+                            <ul class="list">
+                                {% for error in field.errors %}
+                                    <li>{{field.label}}: {{error|escape}}</li>
+                                {% endfor %}
+                            </ul>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endif %}
+            <div class="description">
+                <!-- add a little padding to the top and bottom -->
+                <div class="ui basic segment" style="padding-left: 0px; padding-right: 0px">
+                    <form id="change-suggestion-form" class="ui form" action="{% url 'suggest' %}" method="post">
+                        {% csrf_token %}
+                        {% for field in form %}
+                            <div class="field">
+                                {{field.label_tag}}
+                                {{field}}
+                            </div>
+                        {% endfor %}
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

@@ -13,3 +13,8 @@ class SuggestView(LoginRequiredMixin, FormView):
     context_object_name = 'suggestion'
     form_class = ChangeSuggestionForm
     template_name = 'change_app/suggestion.html'
+
+    def get_form_kwargs(self):
+        kwargs = super(SuggestView, self).get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
