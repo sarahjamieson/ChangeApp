@@ -80,7 +80,11 @@ class CustomUserCreationForm(UserCreationForm):
         super(CustomUserCreationForm, self).__init__(*args, **kwargs)
         band_choices = self.fields['band'].choices
         hub_choices = self.fields['hubs'].choices
-        self.fields['band'].choices = [('', 'Band')] + band_choices
+        self.fields['band'].choices = [('', 'Band')] + [
+            # don't allow 'not set' in form
+            band_choice for band_choice in band_choices
+            if band_choice[0] != 'N'
+        ]
         self.fields['hubs'].choices.empty_label = 'Hub'
 
 

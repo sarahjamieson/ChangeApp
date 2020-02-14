@@ -17,7 +17,6 @@ class User(AbstractUser):
         BAND_8D = '8d'
         BAND_9 = '9'
         NOT_SET = 'N'
-        OTHER = 'O'
 
     band = models.CharField(
         max_length=2,
